@@ -1,0 +1,12 @@
+{
+  products: [
+    {
+      id: 0,
+      collection: "МоноТиберия",
+      side: "ИТАЛИЯ",
+      img: "",
+      price: 3500,
+      title: "Керамогранит Creto Forza Calacatta white PG 01 45х45",
+    }
+  ]
+}
