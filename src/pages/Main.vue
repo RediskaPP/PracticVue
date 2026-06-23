@@ -2,7 +2,6 @@ Homepage · VUE
 <template>
   <main>
     <div class="wrapper">
-      <Header/>
       <HeroSlider/>
       <CategoryGrid />
       <AdvantagesBar />
@@ -15,7 +14,6 @@ Homepage · VUE
       <AboutSection />
       <ReviewsSection />
       <ContactsSection />
-      <AppFooter />
     </div>
   </main>
 </template>
