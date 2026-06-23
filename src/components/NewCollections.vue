@@ -1,196 +1,244 @@
 <template>
-  <section class="new-collections">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-heading">НОВИНКИ В КАТАЛОГЕ</h2>
-        <a href="#" class="section-link">ВСЕ КОЛЛЕКЦИИ <span class="section-link__dot" /></a>
+  <section class="newcol">
+    <div class="newcol__inner">
+      <!-- Section header -->
+      <div class="newcol__header">
+        <hr class="newcol__line" />
+        <div class="newcol__header-row">
+          <h2 class="newcol__title">Новинки в каталоге</h2>
+          <a href="#" class="geo-all-link">
+            <span class="geo-all-link__dot">→</span>
+            Все коллекции
+          </a>
+        </div>
       </div>
 
-      <div class="new-collections__grid">
-        <a
-          v-for="item in collections"
-          :key="item.name"
-          href="#"
-          class="nc-card"
-          :class="{ 'nc-card--tall': item.tall }"
-          :style="{ backgroundImage: `url(${item.image})` }"
-        >
+      <!-- Cards grid: 760 | (480 stacked) -->
+      <div class="newcol__grid">
+        <!-- Large: SIMPLE 760×520 -->
+        <a href="#" class="nc-card nc-card--large"
+           :style="{ backgroundImage: `url(${img[0]}})` }">
           <div class="nc-card__overlay" />
           <div class="nc-card__body">
-            <p class="nc-card__eyebrow">{{ item.eyebrow }}</p>
-            <h3 class="nc-card__name">{{ item.name }}</h3>
+            <p class="nc-card__eyebrow">Новая эксклюзивная коллекция от Laparet</p>
+            <h3 class="nc-card__name nc-card__name--55">SIMPLE</h3>
             <div class="nc-card__country">
-              <span class="nc-card__flag">{{ item.flag }}</span>
-              <span class="nc-card__country-name">{{ item.country }}</span>
+              <span class="nc-card__flag">🇷🇺</span>
+              <span class="nc-card__country-name">Россия</span>
             </div>
           </div>
         </a>
+
+        <!-- Right column: two stacked 480×240 -->
+        <div class="nc-right">
+          <a href="#" class="nc-card nc-card--sm"
+             :style="{ backgroundImage: `url(${img[1]}})` }">
+            <div class="nc-card__overlay" />
+            <div class="nc-card__body">
+              <p class="nc-card__eyebrow">Новая эксклюзивная коллекция от Laparet</p>
+              <h3 class="nc-card__name nc-card__name--40">МоноТиберио</h3>
+              <div class="nc-card__country">
+                <span class="nc-card__flag">🇮🇹</span>
+                <span class="nc-card__country-name">ИТАЛИЯ</span>
+              </div>
+            </div>
+          </a>
+          <a href="#" class="nc-card nc-card--sm"
+             :style="{ backgroundImage: `url(${img[2]}})` }">
+            <div class="nc-card__overlay" />
+            <div class="nc-card__body">
+              <p class="nc-card__eyebrow">Новая коллекция от Casabella</p>
+              <h3 class="nc-card__name nc-card__name--40">MONO</h3>
+              <div class="nc-card__country">
+                <span class="nc-card__flag">🇮🇹</span>
+                <span class="nc-card__country-name">ИТАЛИЯ</span>
+              </div>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-const collections = [
-  {
-    eyebrow: 'НОВАЯ ЭКСКЛЮЗИВНАЯ КОЛЛЕКЦИЯ ОТ LAPARET',
-    name: 'МоноТиберио',
-    flag: '🇮🇹',
-    country: 'ИТАЛИЯ',
-    image: 'https://images.unsplash.com/photo-1615971677499-5467cbab01a0?w=400&q=80',
-  },
-  {
-    eyebrow: 'НОВАЯ ЭКСКЛЮЗИВНАЯ КОЛЛЕКЦИЯ ОТ LAPARET',
-    name: 'SIMPLE',
-    flag: '🇷🇺',
-    country: 'РОССИЯ',
-    image: 'https://images.unsplash.com/photo-1631889993959-41b4e9c6e3c5?w=600&q=80',
-    tall: true,
-  },
-  {
-    eyebrow: 'НОВАЯ КОЛЛЕКЦИЯ ОТ CASABELLA',
-    name: 'MONO',
-    flag: '🇮🇹',
-    country: 'ИТАЛИЯ',
-    image: 'https://images.unsplash.com/photo-1502005097973-6a7082348e28?w=400&q=80',
-  },
-]
+    const img = [
+        "/images/block-new-collection/1.png",
+        "/images/block-new-collection/2.png",
+        "/images/block-new-collection/3.png",
+    ]
 </script>
 
 <style scoped>
-.new-collections {
-  padding: 56px 0;
+.newcol {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 0 56px;
+  background: #fff;
 }
 
-.section-header {
+/* 1680px centered */
+.newcol__inner {
+  width: 1680px;
+  max-width: calc(100% - 240px);
+}
+
+/* Header */
+.newcol__line {
+  width: 100%;
+  height: 1px;
+  background: #E9E9E9;
+  border: none;
+  margin: 0 0 16px;
+}
+
+.newcol__header-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
-.section-heading {
+/* Inter 700 25px letter-spacing -2px uppercase */
+.newcol__title {
   font-family: 'inter', sans-serif;
-  font-size: 15px;
+  font-size: 25px;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: -2px;
   text-transform: uppercase;
-  color: #1A1A1A;
+  color: #000;
+  margin: 0;
 }
 
-.section-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'inter', sans-serif;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #888;
-  text-decoration: none;
-  transition: color 0.18s;
-}
-
-.section-link:hover { color: #D9342B; }
-
-.section-link__dot {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #D9342B;
-}
-
-.new-collections__grid {
+/* Grid: 760 + 480 */
+.newcol__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 6px;
-  height: 420px;
+  grid-template-columns: 760fr 480fr;
+  gap: 0;
+  height: 520px;
 }
 
+/* Base card */
 .nc-card {
-  position: relative;
   display: block;
+  position: relative;
   overflow: hidden;
   text-decoration: none;
   background-size: cover;
   background-position: center;
 }
 
-.nc-card--tall {
-  grid-row: 1 / 3;
-  grid-column: 2;
-}
-
 .nc-card__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.05) 60%);
+  background: rgba(58,43,2,0.30);
   transition: background 0.3s;
 }
-
-.nc-card:hover .nc-card__overlay {
-  background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.15) 60%);
-}
+.nc-card:hover .nc-card__overlay { background: rgba(58,43,2,0.45); }
 
 .nc-card__body {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 20px;
+  padding: 24px 32px;
   z-index: 1;
 }
 
+/* Inter 700 10px letter-spacing 3px cream — eyebrow */
 .nc-card__eyebrow {
   font-family: 'inter', sans-serif;
-  font-size: 8px;
-  letter-spacing: 0.14em;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
-  margin-bottom: 4px;
+  color: #EBE5D2;
+  margin: 0 0 6px;
 }
 
 .nc-card__name {
   font-family: 'inter', sans-serif;
-  font-size: 20px;
   font-weight: 700;
   color: #fff;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-bottom: 8px;
+  margin: 0 0 8px;
+  line-height: 1;
 }
-
-.nc-card--tall .nc-card__name {
-  font-size: 28px;
-}
+/* SIMPLE: 55px ls-3px */
+.nc-card__name--55 { font-size: 55px; letter-spacing: -3px; }
+/* МоноТиберио/MONO: 40px ls-2px */
+.nc-card__name--40 { font-size: 40px; letter-spacing: -2px; }
 
 .nc-card__country {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
-
-.nc-card__flag {
-  font-size: 14px;
-}
-
+.nc-card__flag { font-size: 16px; }
 .nc-card__country-name {
   font-family: 'inter', sans-serif;
-  font-size: 10px;
-  letter-spacing: 0.1em;
+  font-size: 18px;
+  font-weight: 300;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.7);
+  color: #fff;
 }
 
-@media (max-width: 768px) {
-  .new-collections__grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    height: auto;
-  }
-  .nc-card { min-height: 200px; }
-  .nc-card--tall { grid-row: auto; grid-column: auto; }
+/* Large card: full height 520px */
+.nc-card--large { height: 520px; }
+
+/* Right col: 2 stacked at 240px each = 480px */
+.nc-right {
+  display: flex;
+  flex-direction: column;
+}
+.nc-card--sm {
+  flex: 1;
+}
+.nc-card--sm + .nc-card--sm {
+  border-top: 2px solid #fff;
+}
+
+/* "все коллекции" link */
+.geo-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'inter', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #999;
+  text-decoration: none;
+  transition: color 0.18s;
+}
+.geo-all-link:hover { color: #E03226; }
+.geo-all-link__dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #E03226;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+@media (max-width: 1024px) {
+  .newcol__inner { max-width: calc(100% - 80px); }
+  .newcol__grid { height: auto; grid-template-columns: 1fr; }
+  .nc-card--large { height: 320px; }
+  .nc-right { flex-direction: row; }
+  .nc-card--sm { height: 200px; }
+  .nc-card--sm + .nc-card--sm { border-top: none; border-left: 2px solid #fff; }
+  .nc-card__name--55 { font-size: 36px; }
+}
+@media (max-width: 640px) {
+  .newcol__inner { max-width: calc(100% - 40px); }
+  .nc-right { flex-direction: column; }
+  .nc-card--sm + .nc-card--sm { border-left: none; border-top: 2px solid #fff; }
 }
 </style>

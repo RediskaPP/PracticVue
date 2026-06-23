@@ -3,7 +3,7 @@ Homepage · VUE
   <main>
     <div class="wrapper">
       <Header/>
-      <MainCartinki/>
+      <HeroSlider/>
       <CategoryGrid />
       <AdvantagesBar />
       <PromoSlider />

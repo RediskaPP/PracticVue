@@ -89,14 +89,16 @@
     <!-- Catalog button -->
     <div class="catalog-bar">
       <div class="container">
-        <button class="catalog-btn" @click="toggleCatalog">
-          КАТАЛОГ ПРОДУКЦИИ
-          <svg class="catalog-btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <line x1="3" y1="12" x2="21" y2="12"/>
-            <line x1="3" y1="18" x2="21" y2="18"/>
-          </svg>
-        </button>
+        <router-link to="/products">
+          <button class="catalog-btn" @click="toggleCatalog">
+            КАТАЛОГ ПРОДУКЦИИ
+            <svg class="catalog-btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+        </router-link>
       </div>
     </div>
   </header>

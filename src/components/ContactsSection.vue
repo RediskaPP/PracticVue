@@ -1,52 +1,46 @@
 <template>
   <section class="contacts">
-    <div class="contacts__map-wrap">
-      <!-- Map placeholder — replace with real Yandex/Google Maps embed -->
-      <div class="contacts__map">
-        <div class="contacts__map-pin">
-          <svg viewBox="0 0 24 24" fill="#D9342B" stroke="#fff" stroke-width="1"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-        </div>
-        <div class="contacts__map-label">
-          <svg viewBox="0 0 24 24" fill="#D9342B" width="12" height="12"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
-          СТАРО-КУЗЬМИХИНСКАЯ, 41/3
-        </div>
+    <!-- Map background: Figma image-t4 = 1920×753 -->
+    <div class="contacts__map-bg">
+      <!-- Map pin label -->
+      <div class="contacts__pin-label">
+        <svg width="16" height="20" viewBox="0 0 16 20" fill="#E03226">
+          <path d="M8 0C3.6 0 0 3.6 0 8c0 5.4 8 12 8 12s8-6.6 8-12c0-4.4-3.6-8-8-8zm0 11c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3z"/>
+        </svg>
+        <span>Старо-Кузьмихинская, 41/3</span>
       </div>
 
-      <!-- Info card -->
+      <!-- Contact card: Figma frame-group162x1 = 480×477 white bg shadow -->
       <div class="contacts__card">
+        <!-- Title: Inter 700 25px ls-2px uppercase (Figma text-b92/93) -->
         <h2 class="contacts__title">КОНТАКТНАЯ<br>ИНФОРМАЦИЯ</h2>
-        <div class="contacts__details">
-          <p class="contacts__address">г. Иркутск, ул. Старо-Кузьминская, 41/3</p>
-          <p class="contacts__hours">Часы работы: 9:00 — 21:00</p>
-          <a href="tel:+73952482805" class="contacts__phone">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.8" width="16" height="16">
+
+        <!-- Address: Inter 300 14px lh30px -->
+        <p class="contacts__addr">г. Иркутск, ул. Старо-Кузьмихинская, 41/3</p>
+        <!-- Hours: Inter 300 14px -->
+        <p class="contacts__hours">Часы работы: 9:00 — 21:00</p>
+
+        <!-- Phone + email -->
+        <div class="contacts__contacts">
+          <div class="contacts__row">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E03226" stroke-width="1.5">
               <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.02 1.18a2 2 0 011.99-2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7a16 16 0 006.72 6.72l1.06-1.17a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
             </svg>
-            +7 (3952) 48-28-05
-          </a>
-          <a href="mailto:geometrika@mail.ru" class="contacts__email">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.8" width="16" height="16">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-              <polyline points="22,6 12,13 2,6"/>
+            <!-- Inter 300 18px -->
+            <a href="tel:+73952482805" class="contacts__phone">+7 (3952) 48-28-05</a>
+          </div>
+          <div class="contacts__row">
+            <svg width="20" height="16" viewBox="0 0 24 20" fill="none" stroke="#E03226" stroke-width="1.5">
+              <rect x="1" y="1" width="22" height="18" rx="1"/>
+              <polyline points="1,1 12,11 23,1"/>
             </svg>
-            geometrika@mail.ru
-          </a>
+            <!-- Inter 300 18px lh26px -->
+            <a href="mailto:geometrika@mail.ru" class="contacts__email">geometrika@mail.ru</a>
+          </div>
         </div>
-        <a href="#" class="contacts__btn">ОБРАТНАЯ СВЯЗЬ</a>
-      </div>
-    </div>
 
-    <!-- Catalog bar -->
-    <div class="contacts__catalog-bar">
-      <div class="container">
-        <button class="catalog-btn">
-          КАТАЛОГ ПРОДУКЦИИ
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <line x1="3" y1="12" x2="21" y2="12"/>
-            <line x1="3" y1="18" x2="21" y2="18"/>
-          </svg>
-        </button>
+        <!-- CTA button: Figma frame-group165-zd = 213×65, border 1px red -->
+        <a href="#" class="contacts__cta">обратная связь</a>
       </div>
     </div>
   </section>
@@ -56,152 +50,147 @@
 
 <style scoped>
 .contacts {
-  position: relative;
+  width: 100%;
 }
 
-.contacts__map-wrap {
+/* Figma: frame-contact3w = 1920×753 with real map image */
+.contacts__map-bg {
+  width: 100%;
+  height: 753px;
+  background:
+      linear-gradient(rgba(200,195,180,0.5), rgba(200,195,180,0.5)),
+      url('https://images.unsplash.com/photo-1524661135-423995f22d0b?w=1920&q=60') center/cover;
   position: relative;
-  height: 420px;
-  background: #E8E4D9;
-  overflow: hidden;
-}
-
-/* Placeholder map — replace with real embed */
-.contacts__map {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #e8e0d0 0%, #d5cfc0 50%, #c8c2b0 100%);
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
-.contacts__map-pin {
+/* Pin label: Figma frame-group1558h = 336×60 white shadow */
+.contacts__pin-label {
   position: absolute;
-  top: 50%;
-  left: 60%;
-  transform: translate(-50%, -100%);
-}
-
-.contacts__map-pin svg {
-  width: 40px;
-  height: 40px;
-}
-
-.contacts__map-label {
-  position: absolute;
-  top: 42%;
-  left: 58%;
+  top: 140px;
+  left: 55%;
   background: #fff;
-  padding: 8px 14px;
-  font-family: 'inter', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: #1A1A1A;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.15);
+  height: 60px;
+  padding: 0 20px;
   display: flex;
   align-items: center;
-  gap: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  gap: 10px;
+  white-space: nowrap;
+  /* Inter 400 16px uppercase #3E3E3E lh30px */
+  font-family: 'inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #3E3E3E;
+  line-height: 30px;
 }
 
+/* Card: Figma frame-rectangle17249n = 480×477 white shadow */
 .contacts__card {
   position: absolute;
+  left: 50%;
   top: 50%;
-  left: 24px;
-  transform: translateY(-50%);
+  transform: translate(-840px, -50%); /* ~120px from left of 1680px content */
+  width: 480px;
+  min-height: 477px;
   background: #fff;
-  padding: 36px 32px;
-  width: 300px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.15);
+  padding: 48px 44px;
+  box-sizing: border-box;
 }
 
-@media (max-width: 1024px) {
-  .contacts__card { left: 50%; transform: translate(-50%, -50%); }
-}
-
+/* Title: Inter 700 25px ls-2px uppercase */
 .contacts__title {
   font-family: 'inter', sans-serif;
-  font-size: 18px;
+  font-size: 25px;
   font-weight: 700;
+  letter-spacing: -2px;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: #1A1A1A;
-  line-height: 1.3;
-  margin-bottom: 20px;
+  color: #000;
+  line-height: normal;
+  margin: 0 0 24px;
 }
 
-.contacts__details {
+/* Address: Inter 300 14px lh30px */
+.contacts__addr {
+  font-family: 'inter', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 30px;
+  color: #000;
+  margin: 0;
+  max-width: 389px;
+}
+
+/* Hours: Inter 300 14px */
+.contacts__hours {
+  font-family: 'inter', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: #000;
+  margin: 0 0 24px;
+}
+
+.contacts__contacts {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 32px;
 }
 
-.contacts__address,
-.contacts__hours {
-  font-family: 'roboto', sans-serif;
-  font-size: 12px;
-  color: #555;
-  line-height: 1.5;
-}
-
-.contacts__phone,
-.contacts__email {
+.contacts__row {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-family: 'roboto', sans-serif;
-  font-size: 13px;
-  color: #1A1A1A;
+  gap: 12px;
+}
+
+/* Phone/email: Inter 300 18px */
+.contacts__phone,
+.contacts__email {
+  font-family: 'inter', sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  color: #000;
   text-decoration: none;
   transition: color 0.18s;
 }
-
 .contacts__phone:hover,
-.contacts__email:hover { color: #D9342B; }
+.contacts__email:hover { color: #E03226; }
 
-.contacts__btn {
-  display: inline-block;
-  padding: 10px 20px;
-  border: 1px solid #D9342B;
+/* CTA: Figma frame-rectangle1610-oc = 213×65 border 1px red */
+.contacts__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 213px;
+  height: 65px;
+  border: 1px solid #E03226;
   font-family: 'inter', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
   text-transform: uppercase;
-  color: #D9342B;
+  color: red;
   text-decoration: none;
   transition: background 0.18s, color 0.18s;
 }
-
-.contacts__btn:hover {
-  background: #D9342B;
+.contacts__cta:hover {
+  background: #E03226;
   color: #fff;
 }
 
-.contacts__catalog-bar {
-  background: #fff;
-  padding: 0;
+@media (max-width: 1400px) {
+  .contacts__card {
+    transform: translate(-50%, -50%);
+    left: 15%;
+    top: 50%;
+  }
 }
-
-.catalog-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 0 28px;
-  height: 52px;
-  background: #D9342B;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  font-family: 'inter', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  transition: background 0.18s;
+@media (max-width: 768px) {
+  .contacts__map-bg { height: auto; padding: 40px 20px; flex-direction: column; align-items: center; }
+  .contacts__card { position: static; transform: none; width: 100%; max-width: 480px; }
+  .contacts__pin-label { display: none; }
 }
-
-.catalog-btn:hover { background: #BF2A22; }
 </style>

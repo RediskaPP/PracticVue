@@ -4,5 +4,5 @@ import './style.css'
 </script>
 
 <template>
-  <Main/>
+  <router-view />
 </template>

@@ -1,18 +1,24 @@
 <template>
   <section class="brands">
-    <div class="container">
-      <h2 class="section-title">КАТАЛОГ БРЕНДОВ</h2>
-      <div class="brands__wrap">
-        <button class="brands__arrow brands__arrow--prev" @click="scroll(-1)" aria-label="Назад">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    <div class="brands__inner">
+      <div class="brands__header">
+        <h2 class="brands__title">КАТАЛОГ БРЕНДОВ</h2>
+      </div>
+      <div class="brands__stage">
+        <button class="brands__arrow brands__arrow--prev" @click="scroll(-1)">
+          <svg width="16" height="14" viewBox="0 0 16 14" fill="none">
+            <path d="M15 7H1M7 1L1 7l6 6" stroke="#aaa" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
         </button>
         <div class="brands__track" ref="track">
-          <a v-for="brand in brands" :key="brand.name" href="#" class="brand-item" :title="brand.name">
-            <img :src="brand.logo" :alt="brand.name" class="brand-item__logo" />
+          <a v-for="b in brands" :key="b.name" href="#" class="brand-item" :title="b.name">
+            <span class="brand-item__name">{{ b.name }}</span>
           </a>
         </div>
-        <button class="brands__arrow brands__arrow--next" @click="scroll(1)" aria-label="Вперёд">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 6 15 12 9 18"/></svg>
+        <button class="brands__arrow brands__arrow--next" @click="scroll(1)">
+          <svg width="16" height="14" viewBox="0 0 16 14" fill="none">
+            <path d="M1 7h14M9 1l6 6-6 6" stroke="#aaa" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
         </button>
       </div>
     </div>
@@ -21,69 +27,79 @@
 
 <script setup>
 import { ref } from 'vue'
-
 const track = ref(null)
 
 const brands = [
-  { name: 'Cezares', logo: 'https://via.placeholder.com/120x40/ffffff/999999?text=CEZARES' },
-  { name: 'Italon', logo: 'https://via.placeholder.com/120x40/ffffff/999999?text=ITALON' },
-  { name: 'Керамин', logo: 'https://via.placeholder.com/120x40/ffffff/999999?text=КЕРАМИН' },
-  { name: 'Grasaro', logo: 'https://via.placeholder.com/120x40/ffffff/999999?text=GRASARO' },
-  { name: 'Laparet', logo: 'https://via.placeholder.com/120x40/ffffff/999999?text=LAPARET' },
-  { name: 'Casabella', logo: 'https://via.placeholder.com/120x40/ffffff/999999?text=CASABELLA' },
+  { name: 'CEZARES' },
+  { name: 'ITALON' },
+  { name: 'КЕРАМИН' },
+  { name: 'GRASARO' },
+  { name: 'LAPARET' },
+  { name: 'CASABELLA' },
+  { name: 'ATLAS CONCORDE' },
 ]
 
 function scroll(dir) {
-  if (track.value) {
-    track.value.scrollBy({ left: dir * 200, behavior: 'smooth' })
-  }
+  if (track.value) track.value.scrollBy({ left: dir * 250, behavior: 'smooth' })
 }
 </script>
 
 <style scoped>
+/* Figma: frame-brands-zt = 1602px, background #EEE */
 .brands {
-  padding: 48px 0;
-  background: #F7F7F7;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  background: #fff;
 }
 
-.section-title {
+.brands__inner {
+  width: 1602px;
+  max-width: calc(100% - 240px);
+  position: relative;
+  padding: 0;
+}
+
+/* Title: Inter 700 46px letter-spacing -3px uppercase #EEE (light grey watermark style) */
+.brands__header {
+  padding: 32px 0 0;
+}
+.brands__title {
   font-family: 'inter', sans-serif;
-  font-size: 13px;
+  font-size: 46px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: -3px;
   text-transform: uppercase;
-  color: #C8C8C8;
-  margin-bottom: 28px;
+  color: #EEEEEE;
+  margin: 0 0 0;
+  line-height: 1;
 }
 
-.brands__wrap {
+/* Grey stage: Figma frame-rectangle17211v = 1600×240 background #EEE */
+.brands__stage {
+  background: #EEEEEE;
+  height: 240px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  position: relative;
+  overflow: hidden;
 }
 
 .brands__arrow {
   flex-shrink: 0;
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: none;
   border: none;
   cursor: pointer;
-  color: #999;
-  transition: color 0.18s;
+  z-index: 2;
+  transition: opacity 0.18s;
 }
-
-.brands__arrow:hover {
-  color: #D9342B;
-}
-
-.brands__arrow svg {
-  width: 20px;
-  height: 20px;
-}
+.brands__arrow:hover { opacity: 0.5; }
 
 .brands__track {
   display: flex;
@@ -92,40 +108,42 @@ function scroll(dir) {
   overflow-x: auto;
   scrollbar-width: none;
   flex: 1;
+  height: 100%;
 }
+.brands__track::-webkit-scrollbar { display: none; }
 
-.brands__track::-webkit-scrollbar {
-  display: none;
-}
-
+/* Brand item: Figma logos are mix-blend-mode: multiply, greyscale */
 .brand-item {
-  flex: 0 0 180px;
+  flex: 0 0 220px;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px 24px;
-  border-right: 1px solid #E0E0E0;
-  transition: opacity 0.2s;
   text-decoration: none;
+  border-right: 1px solid rgba(0,0,0,0.08);
+  transition: background 0.18s;
 }
+.brand-item:last-child { border-right: none; }
+.brand-item:hover { background: rgba(255,255,255,0.5); }
 
-.brand-item:last-child {
-  border-right: none;
+.brand-item__name {
+  font-family: 'inter', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: rgba(0,0,0,0.35);
+  text-transform: uppercase;
+  transition: color 0.18s;
 }
+.brand-item:hover .brand-item__name { color: rgba(0,0,0,0.6); }
 
-.brand-item:hover {
-  opacity: 0.7;
+@media (max-width: 1024px) {
+  .brands__inner { max-width: calc(100% - 80px); }
 }
-
-.brand-item__logo {
-  max-width: 120px;
-  height: 36px;
-  object-fit: contain;
-  filter: grayscale(1);
-  transition: filter 0.2s;
-}
-
-.brand-item:hover .brand-item__logo {
-  filter: grayscale(0);
+@media (max-width: 640px) {
+  .brands__inner { max-width: calc(100% - 40px); }
+  .brands__title { font-size: 30px; }
+  .brands__stage { height: 160px; }
+  .brand-item { flex: 0 0 160px; }
 }
 </style>

@@ -1,34 +1,41 @@
 <template>
   <section class="services">
-    <div class="container">
-      <h2 class="section-heading">УСЛУГИ КОМПАНИИ</h2>
+    <div class="services__inner">
+      <div class="services__header">
+        <hr class="services__line" />
+        <h2 class="services__title">УСЛУГИ КОМПАНИИ</h2>
+      </div>
+
+      <!-- Figma: frame-news-pu layout -->
       <div class="services__grid">
-        <!-- Large card -->
-        <a href="#" class="srv-card srv-card--large"
-           style="background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=700&q=80')">
-          <div class="srv-card__overlay" />
-          <div class="srv-card__body">
-            <h3 class="srv-card__title">ПРОФЕССИОНАЛЬНАЯ РЕЗКА ПЛИТКИ И КЕРАМОГРАНИТА</h3>
-            <p class="srv-card__sub">НА ПРОФЕССИОНАЛЬНОМ ОБОРУДОВАНИИ</p>
+        <!-- Large card: 760×520 -->
+        <a href="#" class="srv srv--large"
+           :style="{ backgroundImage: `url(${img[0]}})` }">>
+          <div class="srv__overlay" />
+          <div class="srv__body">
+            <p class="srv__sub">на профессиональном оборудовании</p>
+            <!-- Inter 700 55px ls-3px line-height 61px -->
+            <h3 class="srv__title srv__title--55">профессиональная резка плитки и керамогранита</h3>
           </div>
         </a>
 
-        <!-- Right cards -->
+        <!-- Right: two stacked 480×240 -->
         <div class="services__right">
-          <a href="#" class="srv-card"
-             style="background-image: url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80')">
-            <div class="srv-card__overlay" />
-            <div class="srv-card__body">
-              <h3 class="srv-card__title srv-card__title--sm">ИЗГОТОВЛЕНИЕ НЕСТАНДАРТНЫХ ИЗДЕЛИЙ</h3>
-              <p class="srv-card__sub">СТОЛИ, СТОЛЕШНИЦЫ, РАКОВИНЫ</p>
+          <a href="#" class="srv srv--sm"
+             :style="{ backgroundImage: `url(${img[1]}})` }">>
+            <div class="srv__overlay" />
+            <div class="srv__body">
+              <p class="srv__sub">Столы, столешницы, раковины</p>
+              <!-- Inter 700 30px ls-2px line-height 33px -->
+              <h3 class="srv__title srv__title--30">Изготовление нестандартных изделий</h3>
             </div>
           </a>
-          <a href="#" class="srv-card"
-             style="background-image: url('https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&q=80')">
-            <div class="srv-card__overlay" />
-            <div class="srv-card__body">
-              <h3 class="srv-card__title srv-card__title--sm">РАЗРАБОТКА ИНДИВИДУАЛЬНОГО 3D-ДИЗАЙНА</h3>
-              <p class="srv-card__sub">ИНТЕРЬЕРА ВАШЕЙ МЕЧТЫ ИЗ НАШЕЙ КЕРАМИКИ</p>
+          <a href="#" class="srv srv--sm"
+             :style="{ backgroundImage: `url(${img[2]}})` }">>
+            <div class="srv__overlay" />
+            <div class="srv__body">
+              <p class="srv__sub">интерьера вашей мечты из нашей керамики</p>
+              <h3 class="srv__title srv__title--30">РАЗРАБОТКА ИНДИВИДУАЛЬНОГО 3D-ДИЗАЙНА</h3>
             </div>
           </a>
         </div>
@@ -37,99 +44,141 @@
   </section>
 </template>
 
-<script setup></script>
+<script setup>
+    const img = [
+        "/images/services/1.png",
+        "/images/services/2.png",
+        "/images/services/3.png",
+    ]
+</script>
 
 <style scoped>
 .services {
-  padding: 56px 0;
-  background: #F7F7F7;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 0 56px;
+  background: #fff;
 }
 
-.section-heading {
+.services__inner {
+  width: 1680px;
+  max-width: calc(100% - 240px);
+}
+
+.services__line {
+  width: 100%;
+  height: 1px;
+  background: #E9E9E9;
+  border: none;
+  margin: 0 0 16px;
+}
+
+/* Inter 700 25px ls-2px uppercase */
+.services__title {
   font-family: 'inter', sans-serif;
-  font-size: 15px;
+  font-size: 25px;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: -2px;
   text-transform: uppercase;
-  color: #1A1A1A;
-  margin-bottom: 24px;
+  color: #000;
+  margin: 0 0 20px;
 }
 
+/* Grid: 760 | 480, total ~1240 (proportional in 1680) */
 .services__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
-  height: 340px;
+  grid-template-columns: 760fr 480fr;
+  gap: 0;
+  height: 520px;
 }
 
-.services__right {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.srv-card {
-  position: relative;
+.srv {
   display: block;
+  position: relative;
   overflow: hidden;
   text-decoration: none;
   background-size: cover;
   background-position: center;
-  flex: 1;
 }
 
-.srv-card--large {
-  height: 100%;
-}
-
-.srv-card__overlay {
+.srv__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 60%);
+  background: rgba(58,43,2,0.30);
   transition: background 0.3s;
 }
+.srv:hover .srv__overlay { background: rgba(58,43,2,0.45); }
 
-.srv-card:hover .srv-card__overlay {
-  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 60%);
-}
-
-.srv-card__body {
+.srv__body {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 24px;
+  padding: 28px 32px;
   z-index: 1;
 }
 
-.srv-card__title {
+/* Sub: Inter 700 10px ls3px cream */
+.srv__sub {
   font-family: 'inter', sans-serif;
-  font-size: 20px;
+  font-size: 10px;
   font-weight: 700;
+  letter-spacing: 3px;
   text-transform: uppercase;
+  color: #EBE5D2;
+  margin: 0 0 8px;
+}
+
+.srv__title {
+  font-family: 'inter', sans-serif;
+  font-weight: 700;
   color: #fff;
-  line-height: 1.25;
-  margin-bottom: 6px;
-}
-
-.srv-card__title--sm {
-  font-size: 15px;
-}
-
-.srv-card__sub {
-  font-family: 'roboto', sans-serif;
-  font-size: 11px;
-  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
+  margin: 0;
 }
 
-@media (max-width: 768px) {
-  .services__grid {
-    grid-template-columns: 1fr;
-    height: auto;
-  }
-  .srv-card--large { min-height: 240px; }
-  .srv-card { min-height: 160px; }
+/* Large: 55px ls-3px line-height 61px */
+.srv__title--55 {
+  font-size: 55px;
+  letter-spacing: -3px;
+  line-height: 61px;
+  max-width: 644px;
+}
+
+/* Small: 30px ls-2px line-height 33px */
+.srv__title--30 {
+  font-size: 30px;
+  letter-spacing: -2px;
+  line-height: 33px;
+  max-width: 392px;
+}
+
+.srv--large { height: 520px; }
+
+.services__right {
+  display: flex;
+  flex-direction: column;
+}
+.srv--sm {
+  flex: 1;
+}
+.srv--sm + .srv--sm {
+  border-top: 2px solid #fff;
+}
+
+@media (max-width: 1024px) {
+  .services__inner { max-width: calc(100% - 80px); }
+  .services__grid { grid-template-columns: 1fr; height: auto; }
+  .srv--large { height: 320px; }
+  .services__right { flex-direction: row; }
+  .srv--sm { height: 200px; }
+  .srv--sm + .srv--sm { border-top: none; border-left: 2px solid #fff; }
+  .srv__title--55 { font-size: 32px; line-height: 38px; }
+}
+@media (max-width: 640px) {
+  .services__inner { max-width: calc(100% - 40px); }
+  .services__right { flex-direction: column; }
+  .srv--sm + .srv--sm { border-left: none; border-top: 2px solid #fff; }
 }
 </style>

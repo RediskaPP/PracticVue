@@ -1,11 +1,11 @@
 <template>
-  <section class="advantages">
-    <div class="container advantages__grid">
-      <div v-for="item in items" :key="item.title" class="adv-item">
-        <div class="adv-item__icon" v-html="item.icon" />
-        <div class="adv-item__text">
-          <p class="adv-item__title">{{ item.title }}</p>
-          <p class="adv-item__sub">{{ item.sub }}</p>
+  <section class="adv">
+    <div class="adv__inner">
+      <div v-for="item in items" :key="item.title" class="adv__item">
+        <img class="adv__icon" :src="item.svg" alt="">
+        <div class="adv__text">
+          <p class="adv__title">{{ item.line1 }}<br>{{ item.line2 }}</p>
+          <p class="adv__sub">{{ item.sub }}</p>
         </div>
       </div>
     </div>
@@ -13,96 +13,84 @@
 </template>
 
 <script setup>
-const items = [
-  {
-    title: 'удобная доставка по Иркутску',
-    sub: 'в день покупки',
-    icon: `<svg viewBox="0 0 48 48" fill="none" stroke="#D9342B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="2" y="16" width="30" height="20" rx="2"/>
-      <path d="M32 20h8l6 8v8h-14V20z"/>
-      <circle cx="12" cy="38" r="4"/><circle cx="38" cy="38" r="4"/>
-    </svg>`,
-  },
-  {
-    title: 'резка плитки и керамогранита',
-    sub: 'под ваш проект',
-    icon: `<svg viewBox="0 0 48 48" fill="none" stroke="#D9342B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="6" y="6" width="16" height="16" rx="1"/><rect x="26" y="6" width="16" height="16" rx="1"/>
-      <rect x="6" y="26" width="16" height="16" rx="1"/><rect x="26" y="26" width="16" height="16" rx="1"/>
-    </svg>`,
-  },
-  {
-    title: 'монтаж плитки на вашем объекте',
-    sub: 'под ключ',
-    icon: `<svg viewBox="0 0 48 48" fill="none" stroke="#D9342B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <polygon points="24,4 44,16 44,32 24,44 4,32 4,16"/>
-      <polygon points="24,14 34,20 34,28 24,34 14,28 14,20"/>
-    </svg>`,
-  },
-  {
-    title: '3D дизайн-проект в подарок',
-    sub: 'при покупке плитки',
-    icon: `<svg viewBox="0 0 48 48" fill="none" stroke="#D9342B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M24 4L44 14v20L24 44 4 34V14L24 4z"/>
-      <path d="M24 4v40M4 14l20 10 20-10"/>
-    </svg>`,
-  },
-]
+import { ref, onMounted } from 'vue'
+import { getAdvantages } from '../api/api.js'
+
+const items = ref([])
+
+onMounted(async () => {
+  items.value = await getAdvantages()
+})
 </script>
 
 <style scoped>
-.advantages {
-  padding: 40px 0;
-  border-top: 1px solid #EFEFEF;
-  border-bottom: 1px solid #EFEFEF;
+/* Figma: frame-advantage-au = 1216px wide, 67px min-height */
+.adv {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 48px 0;
+  border-top: 1px solid #E9E9E9;
+  border-bottom: 1px solid #E9E9E9;
+  background: #fff;
 }
 
-.advantages__grid {
+.adv__inner {
+  width: 1216px;
+  max-width: calc(100% - 240px);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  gap: 0;
 }
 
-.adv-item {
+.adv__item {
   display: flex;
   align-items: flex-start;
-  gap: 16px;
+  gap: 18px;
+  padding: 0 24px 0 0;
 }
+.adv__item:last-child { padding-right: 0; }
 
-.adv-item__icon {
+.adv__icon {
   flex-shrink: 0;
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 58px;
+  display: flex;
+  align-items: center;
 }
 
-.adv-item__icon svg {
-  width: 100%;
-  height: 100%;
-}
-
-.adv-item__title {
-  font-family: 'inter', sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  color: #1A1A1A;
-  line-height: 1.4;
-}
-
-.adv-item__sub {
+/* Roboto 300 16px line-height 21px — from Figma */
+.adv__title {
   font-family: 'roboto', sans-serif;
-  font-size: 11px;
-  color: #999;
-  margin-top: 3px;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 21px;
+  color: #000;
+  margin: 0 0 4px;
 }
 
-@media (max-width: 768px) {
-  .advantages__grid {
+/* Roboto 400 12px letter-spacing 1px grey #A4A4A4 */
+.adv__sub {
+  font-family: 'roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: #A4A4A4;
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .adv__inner {
+    max-width: calc(100% - 80px);
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: 32px 0;
   }
 }
-
-@media (max-width: 480px) {
-  .advantages__grid { grid-template-columns: 1fr; }
+@media (max-width: 560px) {
+  .adv__inner {
+    max-width: calc(100% - 40px);
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
 }
 </style>
