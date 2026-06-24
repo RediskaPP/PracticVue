@@ -1,46 +1,43 @@
 <script setup>
 defineProps({
-  name: String,
-  flag: String,
-  country: String,
-  img: String,
-  brand: String,
-  count: Number,
-  wished: Boolean
+  item: {
+    type: Object,
+    required: true
+  }
 })
 
 </script>
 
 <template>
-  <div :key="name" class="pop-card">
+  <div :key="item.name" class="pop-card">
     <!-- Card border: 400×485 from Figma -->
     <div class="pop-card__frame">
       <!-- Country tag: white rect over image -->
       <div class="pop-card__country-wrap">
         <div class="pop-card__country-bg" />
-        <span class="pop-card__flag">{{ flag }}</span>
-        <span class="pop-card__country">{{ country }}</span>
+        <img class="pop-card__flag" :src="item.flag">
+        <span class="pop-card__country">{{ item.country }}</span>
       </div>
 
       <!-- Wish button -->
-      <button class="pop-card__wish" :class="{ 'pop-card__wish--active': wished }">
+      <button class="pop-card__wish" :class="{ 'pop-card__wish--active': item.wished }">
         <svg width="22" height="20" viewBox="0 0 24 22" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
         </svg>
       </button>
 
       <!-- Image 398×270 -->
-      <img :src="img" :alt="name" class="pop-card__img" />
+      <img :src="item.img" :alt="item.name" class="pop-card__img" />
 
       <!-- Brand meta: Inter 700 10px ls3px uppercase grey #9B9B9B -->
-      <p class="pop-card__brand">{{ brand }}</p>
+      <p class="pop-card__brand">{{ item.brand }}</p>
 
       <!-- Name: Inter 700 40px ls-2px #525252 -->
-      <h3 class="pop-card__name">{{ name }}</h3>
+      <h3 class="pop-card__name">{{ item.name }}</h3>
 
       <!-- Footer: grey bg #F5F5F5 396×70 -->
       <div class="pop-card__footer">
-        <span class="pop-card__count">{{ count }} элемента</span>
+        <span class="pop-card__count">{{ item.count }} элемента</span>
         <button class="pop-card__more">
           <svg width="22" height="24" viewBox="0 0 22 24" fill="none" stroke="#555" stroke-width="1.5">
             <path d="M4 12h14M11 5l7 7-7 7"/>

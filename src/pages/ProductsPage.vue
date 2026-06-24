@@ -18,7 +18,7 @@
               :key="tag"
               class="tag-btn"
               :class="{ active: activeQuery === tag }"
-              @click="activeQuery = tag"
+              @click="applyQueryTag(tag)"
           >
             {{ tag }}
           </button>
@@ -27,7 +27,39 @@
     </header>
 
     <!-- Filter Bar -->
-    <FilterBar :filters="filters" :brands="brands" @search="handleSearch" />
+    <FilterBar
+        :filters="filters"
+        :brands="brands"
+        :active-filters="activeFilters"
+        @search="handleSearch"
+        @reset="handleReset"
+    />
+
+    <!-- Active filter chips -->
+    <div v-if="hasActiveFilters" class="active-chips">
+      <span class="chips-label">Применено:</span>
+      <div class="chips-list">
+        <span v-if="activeFilters.brand" class="chip">
+          {{ activeFilters.brand }}
+          <button class="chip-remove" @click="removeFilter('brand')">×</button>
+        </span>
+        <span v-if="activeFilters.priceChanged" class="chip">
+          {{ activeFilters.priceFrom }} – {{ activeFilters.priceTo }} ₽
+          <button class="chip-remove" @click="removeFilter('price')">×</button>
+        </span>
+        <span v-if="activeFilters.country" class="chip">
+          {{ activeFilters.country }}
+          <button class="chip-remove" @click="removeFilter('country')">×</button>
+        </span>
+        <span v-if="activeQuery" class="chip">
+          {{ activeQuery }}
+          <button class="chip-remove" @click="removeFilter('query')">×</button>
+        </span>
+      </div>
+      <button class="reset-all-btn" @click="handleReset">
+        <span class="reset-icon">✕</span> Сбросить все
+      </button>
+    </div>
 
     <!-- View Switcher -->
     <div class="view-switcher">
@@ -56,43 +88,71 @@
       </div>
     </div>
 
+    <!-- Results count -->
+    <div class="results-meta" v-if="viewMode === 'collections'">
+      Найдено коллекций: <strong>{{ filteredCollections.length }}</strong>
+    </div>
+    <div class="results-meta" v-else>
+      Найдено товаров: <strong>{{ filteredProducts.length }}</strong>
+    </div>
+
     <!-- Products / Collections Grid -->
     <div class="grid-wrapper">
-      <div v-if="viewMode === 'collections'" class="items-grid">
-        <Collection
-            v-for="item in collection"
-            :key="item.id"
-            :item="item"
-        />
-      </div>
-      <div v-else class="items-grid products-grid">
-        <ProductCard
-            v-for="item in products"
-            :key="item.id"
-            :item="item"
-        />
-      </div>
+      <!-- Collections -->
+      <template v-if="viewMode === 'collections'">
+        <div v-if="filteredCollections.length" class="items-grid">
+          <Collection
+              v-for="item in filteredCollections"
+              :key="item.id"
+              :item="item"
+          />
+        </div>
+        <div v-else class="empty-state">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="22" stroke="#e9e9e9" stroke-width="2"/>
+            <path d="M16 24h16M24 16v16" stroke="#cbcbcb" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <p>Коллекции не найдены</p>
+          <button class="empty-reset-btn" @click="handleReset">Сбросить фильтры</button>
+        </div>
+      </template>
+
+      <!-- Products -->
+      <template v-else>
+        <div v-if="filteredProducts.length" class="items-grid products-grid">
+          <ProductCard
+              v-for="item in filteredProducts"
+              :key="item.id"
+              :item="item"
+          />
+        </div>
+        <div v-else class="empty-state">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="22" stroke="#e9e9e9" stroke-width="2"/>
+            <path d="M16 24h16M24 16v16" stroke="#cbcbcb" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <p>Товары не найдены</p>
+          <button class="empty-reset-btn" @click="handleReset">Сбросить фильтры</button>
+        </div>
+      </template>
     </div>
 
     <!-- Pagination -->
-    <div class="pagination-bar">
+    <div class="pagination-bar" v-if="totalVisible > 0">
       <div class="divider"></div>
       <div class="pagination-row">
         <span class="pages-label">Страницы:</span>
         <div class="page-numbers">
-          <span class="page current">1</span>
-          <span class="page">2</span>
-          <span class="page">3</span>
-          <span class="page">4</span>
-          <span class="page">5</span>
-          <span class="page">6</span>
-          <span class="page">7</span>
-          <span class="page">8</span>
-          <span class="page">9</span>
-          <span class="page dots">...</span>
-          <span class="page">26</span>
+          <span
+              v-for="p in totalPages"
+              :key="p"
+              class="page"
+              :class="{ current: currentPage === p }"
+              @click="currentPage = p"
+          >{{ p }}</span>
+          <span v-if="totalPages > 9" class="page dots">...</span>
         </div>
-        <div class="load-more">
+        <div class="load-more" @click="loadMore">
           <div class="load-circle">
             <span class="arrow-down">→</span>
           </div>
@@ -101,95 +161,174 @@
       </div>
     </div>
   </div>
+  <AdvantagesBar/>
+  <PromoSlider/>
+  <ReviewsSection/>
+  <ContactsSection/>
 </template>
 
 <script>
 import FilterBar from '../components/CategodyComponents/FilterBar.vue'
-import CollectionCard from '../components/CategodyComponents/CollectionCard.vue'
+import CollectionCard from '../components/ProductBlock/Collection.vue'
 import ProductCard from '../components/CategodyComponents/ProductCard.vue'
 import SortIcon from '../components/CategodyComponents/SortIcon.vue'
 import ChevronDown from '../components/CategodyComponents/ChevronDown.vue'
-import CategoryBlock from "../components/CategodyComponents/CategoryBlock.vue";
 import Collection from "../components/ProductBlock/Collection.vue";
+import {onMounted, ref} from 'vue';
+import {getCollection, getPopulars, getProducts} from "../api/api.js";
+import AdvantagesBar from "../components/AdvantagesBar.vue";
+import PromoSlider from "../components/PromoSlider.vue";
+import ReviewsSection from "../components/ReviewsSection.vue";
+import ContactsSection from "../components/ContactsSection.vue";
+
+const DEFAULT_PRICE_FROM = 0
+const DEFAULT_PRICE_TO = 10000
+const PAGE_SIZE = 9
 
 export default {
   name: 'CatalogPage',
-  components: {Collection, CategoryBlock, FilterBar, CollectionCard, ProductCard, SortIcon, ChevronDown },
+  components: {
+    ContactsSection,
+    ReviewsSection,
+    PromoSlider, AdvantagesBar, Collection, FilterBar, CollectionCard, ProductCard, SortIcon, ChevronDown },
 
   data() {
     return {
       viewMode: 'collections',
       activeQuery: null,
+      currentPage: 1,
+
+      // Applied filter state
+      activeFilters: {
+        priceFrom: DEFAULT_PRICE_FROM,
+        priceTo: DEFAULT_PRICE_TO,
+        brand: null,
+        country: null,
+        priceChanged: false,
+      },
+
       popularQueries: ['Крупные форматы плитки', 'Плитка для пола', 'Плитка для стен'],
 
       filters: [
-        { id: 'application', label: 'Применение' },
-        { id: 'surface', label: 'Поверхность' },
-        { id: 'pattern', label: 'Рисунок' },
-        { id: 'style', label: 'Стилистика' },
-        { id: 'color', label: 'Цвет' },
-        { id: 'size', label: 'Размеры элемент..' },
-        { id: 'type', label: 'Тип плитки' },
-        { id: 'format', label: 'Формат' },
-        { id: 'country', label: 'Страна' },
+        { id: 'application', label: 'Применение', options: ['Для пола', 'Для стен', 'Универсальная'] },
+        { id: 'surface', label: 'Поверхность', options: ['Глянцевая', 'Матовая', 'Полированная', 'Структурная'] },
+        { id: 'pattern', label: 'Рисунок', options: ['Однотонная', 'Под мрамор', 'Под дерево', 'Геометрия'] },
+        { id: 'style', label: 'Стилистика', options: ['Классика', 'Модерн', 'Лофт', 'Прованс'] },
+        { id: 'color', label: 'Цвет', options: ['Белый', 'Бежевый', 'Серый', 'Чёрный', 'Коричневый'] },
+        { id: 'size', label: 'Размеры элемент..', options: ['20x40', '30x60', '45x45', '60x60', '80x80'] },
+        { id: 'type', label: 'Тип плитки', options: ['Керамогранит', 'Керамика', 'Клинкер', 'Мозаика'] },
+        { id: 'format', label: 'Формат', options: ['Малый (до 30см)', 'Средний (30-60см)', 'Крупный (60см+)'] },
+        { id: 'country', label: 'Страна', options: ['Россия', 'Испания', 'Италия', 'Германия', 'Португалия'] },
       ],
 
-      brands: ['CEZARES', 'ITALON', 'LAPARET', 'KERAMA MARAZZI'],
-
-      products: [
-        {
-          id: 0,
-          collection: 'МоноТиберия',
-          side: 'РОССИЯ',
-          img: '/images/products/1.png',
-          price: 3564,
-          title: 'Керамогранит Creto Forza Calacatta white PG 01 45х45',
-        },
-        {
-          id: 1,
-          collection: 'МоноТиберия',
-          side: 'РОССИЯ',
-          img: '/images/products/1.png',
-          price: 3564,
-          title: 'Керамогранит «Жаклин» 20x80 см 1.6 м² цвет белый',
-        },
-      ],
-
-      collection: [
-        {
-          id: 0,
-          flag: '🇷🇺',
-          side: 'Россия',
-          company: 'Laparet',
-          name: 'МоноТиберио',
-          countelement: 4,
-          img: '/images/populars/1.png',
-        },
-        {
-          id: 1,
-          flag: '🇪🇸',
-          side: 'Испания',
-          company: 'Чупакабро',
-          name: 'Альтус',
-          countelement: 12,
-          img: '/images/populars/2.png',
-        },
-        {
-          id: 2,
-          flag: '🇮🇹',
-          side: 'Италия',
-          company: 'casabella',
-          name: 'Бизарро',
-          countelement: 4,
-          img: '/images/populars/3.png',
-        },
-      ],
+      brands: ['CEZARES', 'ITALON', 'LAPARET', 'KERAMA MARAZZI', 'GRASARO', 'ESTIMA'],
     }
+  },
+  setup(){
+    const allProducts = ref([]);
+
+    const allCollections = ref([]);
+
+    onMounted(async () => {
+      allProducts.value = await getProducts()
+      allCollections.value = await getCollection()
+    })
+
+    return{
+      allProducts,
+      allCollections,
+    }
+  },
+
+  computed: {
+    filteredCollections() {
+      const { priceFrom, priceTo, brand, country, priceChanged } = this.activeFilters
+      return this.allCollections.filter(item => {
+        if (priceChanged && (item.priceTo < priceFrom || item.priceFrom > priceTo)) return false
+        if (brand && item.brand.toLowerCase() !== brand.toLowerCase()) return false
+        if (country && item.side?.toLowerCase() !== country.toLowerCase()) return false
+        if (this.activeQuery && !item.name.toLowerCase().includes(this.activeQuery.toLowerCase()) &&
+            !item.side.toLowerCase().includes(this.activeQuery.toLowerCase())) {
+          // query tag just filters by country/keyword — skip filtering for collections by query tag
+        }
+        return true
+      })
+    },
+
+    filteredProducts() {
+      const { priceFrom, priceTo, brand, country, priceChanged } = this.activeFilters
+      return this.allProducts.filter(item => {
+        if (priceChanged && (item.price < priceFrom || item.price > priceTo)) return false
+        if (brand && item.brand !== brand) return false
+        if (country && item.country !== country) return false
+        if (this.activeQuery && item.query !== this.activeQuery) return false
+        return true
+      })
+    },
+
+    hasActiveFilters() {
+      return this.activeFilters.brand ||
+          this.activeFilters.country ||
+          this.activeFilters.priceChanged ||
+          this.activeQuery
+    },
+
+    totalVisible() {
+      return this.viewMode === 'collections'
+          ? this.filteredCollections.length
+          : this.filteredProducts.length
+    },
+
+    totalPages() {
+      return Math.max(1, Math.ceil(this.totalVisible / PAGE_SIZE))
+    },
   },
 
   methods: {
     handleSearch(params) {
-      console.log('Search with params:', params)
+      const priceChanged = params.priceFrom !== DEFAULT_PRICE_FROM || params.priceTo !== DEFAULT_PRICE_TO
+      this.activeFilters = {
+        priceFrom: params.priceFrom,
+        priceTo: params.priceTo,
+        brand: params.brand || null,
+        country: params.country || null,
+        priceChanged,
+      }
+      this.currentPage = 1
+    },
+
+    handleReset() {
+      this.activeFilters = {
+        priceFrom: DEFAULT_PRICE_FROM,
+        priceTo: DEFAULT_PRICE_TO,
+        brand: null,
+        country: null,
+        priceChanged: false,
+      }
+      this.activeQuery = null
+      this.currentPage = 1
+    },
+
+    removeFilter(type) {
+      if (type === 'brand') this.activeFilters.brand = null
+      if (type === 'country') this.activeFilters.country = null
+      if (type === 'price') {
+        this.activeFilters.priceFrom = DEFAULT_PRICE_FROM
+        this.activeFilters.priceTo = DEFAULT_PRICE_TO
+        this.activeFilters.priceChanged = false
+      }
+      if (type === 'query') this.activeQuery = null
+      this.currentPage = 1
+    },
+
+    applyQueryTag(tag) {
+      this.activeQuery = this.activeQuery === tag ? null : tag
+      this.viewMode = 'products'
+      this.currentPage = 1
+    },
+
+    loadMore() {
+      if (this.currentPage < this.totalPages) this.currentPage++
     },
   },
 }
@@ -262,7 +401,75 @@ export default {
   white-space: nowrap;
 }
 .tag-btn:hover { border-color: #e03226; }
-.tag-btn.active { border-color: #e03226; color: #e03226; }
+.tag-btn.active { border-color: #e03226; color: #e03226; background: #fff5f5; }
+
+/* ── Active chips ── */
+.active-chips {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 12px 0 8px;
+  border-top: 1px solid #f0f0f0;
+  margin-bottom: 4px;
+}
+.chips-label {
+  font-size: 13px;
+  font-weight: 400;
+  color: #9e9e9e;
+  white-space: nowrap;
+}
+.chips-list {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff5f5;
+  border: 1px solid #e03226;
+  color: #e03226;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 2px;
+}
+.chip-remove {
+  background: none;
+  border: none;
+  color: #e03226;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+  margin-left: 2px;
+  font-weight: 700;
+}
+.chip-remove:hover { color: #b01c14; }
+
+.reset-all-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 1px solid #cbcbcb;
+  color: #6a6a6a;
+  font-size: 12px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  padding: 6px 14px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: border-color 0.15s, color 0.15s;
+  white-space: nowrap;
+  margin-left: auto;
+}
+.reset-all-btn:hover { border-color: #e03226; color: #e03226; }
+.reset-icon { font-size: 10px; }
 
 /* ── View Switcher ── */
 .view-switcher {
@@ -271,15 +478,12 @@ export default {
   gap: 24px;
   padding: 20px 0 16px;
 }
-
 .show-label {
   font-size: 18px;
   font-weight: 300;
   color: #adadad;
 }
-
 .view-tabs { display: flex; gap: 24px; }
-
 .view-tab {
   background: none;
   border: none;
@@ -308,9 +512,7 @@ export default {
   width: 100%;
   height: 2px;
   background: #e03226;
-  border-radius: 0;
 }
-
 .sort-control {
   margin-left: auto;
   display: flex;
@@ -338,14 +540,54 @@ export default {
   border-radius: 50%;
 }
 
+/* ── Results meta ── */
+.results-meta {
+  font-size: 13px;
+  color: #9e9e9e;
+  margin-bottom: 12px;
+  font-family: 'Roboto', sans-serif;
+}
+.results-meta strong { color: #444; }
+
 /* ── Grid ── */
-.grid-wrapper { padding-bottom: 40px; }
+.grid-wrapper { padding-bottom: 40px; min-height: 200px; }
 .items-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
+  gap: 20px;
 }
 .products-grid { grid-template-columns: repeat(4, 1fr); }
+
+/* ── Empty state ── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 80px 0;
+  color: #cbcbcb;
+}
+.empty-state p {
+  font-size: 18px;
+  font-weight: 300;
+  color: #9e9e9e;
+  margin: 0;
+}
+.empty-reset-btn {
+  border: 1px solid #e03226;
+  background: none;
+  color: #e03226;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  padding: 10px 24px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background 0.18s, color 0.18s;
+}
+.empty-reset-btn:hover { background: #e03226; color: #fff; }
 
 /* ── Pagination ── */
 .pagination-bar { padding: 16px 0 40px; }
@@ -380,7 +622,6 @@ export default {
 .page.current { color: #000; }
 .page:hover:not(.current):not(.dots) { color: #6e6e6e; }
 .page.dots { cursor: default; }
-
 .load-more {
   margin-left: auto;
   display: flex;

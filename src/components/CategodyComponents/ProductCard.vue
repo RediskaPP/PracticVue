@@ -62,14 +62,18 @@ export default {
   background: #fff;
   cursor: pointer;
   display: flex;
+  align-items: center;
   flex-direction: column;
   transition: box-shadow 0.2s;
+  width: 281px;
+  height: 539px;
 }
 .product-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); z-index: 1; }
 
 .card-img-wrap {
-  width: 100%;
-  height: 200px;
+  margin-top: 20px;
+  width: 80%;
+  height: 220px;
   overflow: hidden;
   background: #f5f5f5;
 }
@@ -122,7 +126,7 @@ export default {
   margin-left: 4px;
 }
 .card-title {
-  font-size: 14px;
+  font-size: 25px;
   font-weight: 400;
   color: #3e3e3e;
   line-height: 1.4;
@@ -134,6 +138,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   margin-top: auto;
+  background: #F5F5F5;
 }
 .card-price {
   font-size: 18px;
