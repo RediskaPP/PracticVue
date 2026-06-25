@@ -6,8 +6,8 @@
         <nav class="top-nav">
           <a href="#" class="top-nav__link">УСЛУГИ <span class="top-nav__arrow">▾</span></a>
           <a href="#" class="top-nav__link top-nav__link--active">ОПЛАТА И ДОСТАВКА</a>
-          <a href="#" class="top-nav__link">АКЦИИ</a>
-          <a href="#" class="top-nav__link">ПОЛЕЗНЫЕ СОВЕТЫ</a>
+          <router-link to="/promotions" href="#" class="top-nav__link">АКЦИИ</router-link>
+          <router-link to="/questions" href="#" class="top-nav__link">ПОЛЕЗНЫЕ СОВЕТЫ</router-link>
           <a href="#" class="top-nav__link">ОБРАТНАЯ СВЯЗЬ</a>
           <a href="#" class="top-nav__link">КОНТАКТЫ</a>
         </nav>

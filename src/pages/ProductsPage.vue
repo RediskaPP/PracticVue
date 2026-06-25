@@ -170,7 +170,7 @@
 <script>
 import FilterBar from '../components/CategodyComponents/FilterBar.vue'
 import CollectionCard from '../components/ProductBlock/Collection.vue'
-import ProductCard from '../components/CategodyComponents/ProductCard.vue'
+import ProductCard from '../components/ProductCard.vue'
 import SortIcon from '../components/CategodyComponents/SortIcon.vue'
 import ChevronDown from '../components/CategodyComponents/ChevronDown.vue'
 import Collection from "../components/ProductBlock/Collection.vue";
