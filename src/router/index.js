@@ -4,6 +4,7 @@ import Main from "../pages/Main.vue";
 import ProductsPage from "../pages/ProductsPage.vue";
 import UsefulTips from "../components/ Question/UsefulTips.vue";
 import PromotionsPage from "../pages/PromotionsPage.vue";
+import ProfilePage from "../pages/ProfilePage.vue";
 
 const routes = [
     {
@@ -25,6 +26,11 @@ const routes = [
         path: '/promotions',
         name: 'promotions',
         component: PromotionsPage
+    },
+    {
+        path: '/profile',
+        name: 'profile',
+        component: ProfilePage
     },
 ]
 

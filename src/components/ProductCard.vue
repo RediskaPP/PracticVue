@@ -49,9 +49,7 @@
       <div class="card-footer">
         <span class="card-price">{{ formatPrice(item.price) }} ₽/м²</span>
         <button class="cart-btn" @click.stop="openModal">
-          <svg width="16" height="15" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 1H5L7.68 14.39C7.77 14.83 8.01 15.23 8.35 15.51C8.7 15.79 9.13 15.94 9.58 15.93H18.4C18.85 15.94 19.28 15.79 19.62 15.51C19.96 15.23 20.2 14.83 20.29 14.39L21.96 6H6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <img src="/images/svg/shopping-cart.svg" alt="">
         </button>
       </div>
     </div>
@@ -210,7 +208,6 @@ export default {
   font-family: 'Inter', sans-serif;
 }
 .cart-btn {
-  background: #e03226;
   color: #fff;
   border: none;
   width: 36px;
@@ -222,5 +219,5 @@ export default {
   transition: background 0.18s;
   flex-shrink: 0;
 }
-.cart-btn:hover { background: #c0281f; }
+.cart-btn:hover { background: var(--gray-color); }
 </style>
