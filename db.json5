@@ -1,26 +1,40 @@
-{
-  products:
-  [
-    {id:'0',collection:'МоноТиберия',side:'РОССИЯ',img:'/images/products/1.png',price:3564,title:'Керамогранит Creto Forza Calacatta white PG 01 45х45'},
-    {id:'1',collection:'МоноТиберия',side:'РОССИЯ',img:'/images/products/1.png',price:3564,title:'Керамогранит «Жаклин» 20x80 см 1.6 м² цвет белый'},
-    {id:'2',collection:'МоноТиберия',side:'РОССИЯ',img:'/images/products/1.png',price:3564,title:'Керамогранит Creto Forza Calacatta white PG 01 45х45'},
-    {id:'3',collection:'МоноТиберия',side:'РОССИЯ',img:'/images/products/1.png',price:3564,title:'Керамогранит «Жаклин» 20x80 см 1.6 м² цвет белый'},
-    {id:'4',collection:'МоноТиберия',side:'РОССИЯ',img:'/images/products/1.png',price:3564,title:'Керамогранит Creto Forza Calacatta white PG 01 45х45'},
-    {id:'5',collection:'МоноТиберия',side:'РОССИЯ',img:'/images/products/1.png',price:3564,title:'Керамогранит «Жаклин» 20x80 см 1.6 м² цвет белый'},
-    {id:'6',collection:'МоноТиберия',side:'РОССИЯ',img:'/images/products/1.png',price:3564,title:'Керамогранит Creto Forza Calacatta white PG 01 45х45'},
-    {id:'7',collection:'МоноТиберия',side:'РОССИЯ',img:'/images/products/1.png',price:3564,title:'Керамогранит «Жаклин» 20x80 см 1.6 м² цвет белый'}],
-  orders:
+{products:[{id:'0',collection:'МоноТиберия',side:'РОССИЯ',img:'/images/products/1.png',price:3564,title:'Керамогранит Creto Forza Calacatta white PG 01 45х45'},{id:'1',collection:'МоноТиберия',side:'РОССИЯ',img:'/images/products/1.png',price:3564,title:'Керамогранит «Жаклин» 20x80 см 1.6 м² цвет белый'},{id:'2',collection:'МоноТиберия',side:'РОССИЯ',img:'/images/products/1.png',price:3564,title:'Керамогранит Creto Forza Calacatta white PG 01 45х45'},{id:'3',collection:'МоноТиберия',side:'РОССИЯ',img:'/images/products/1.png',price:3564,title:'Керамогранит «Жаклин» 20x80 см 1.6 м² цвет белый'},{id:'4',collection:'МоноТиберия',side:'РОССИЯ',img:'/images/products/1.png',price:3564,title:'Керамогранит Creto Forza Calacatta white PG 01 45х45'},{id:'5',collection:'МоноТиберия',side:'РОССИЯ',img:'/images/products/1.png',price:3564,title:'Керамогранит «Жаклин» 20x80 см 1.6 м² цвет белый'},{id:'6',collection:'МоноТиберия',side:'РОССИЯ',img:'/images/products/1.png',price:3564,title:'Керамогранит Creto Forza Calacatta white PG 01 45х45'},{id:'7',collection:'МоноТиберия',side:'РОССИЯ',img:'/images/products/1.png',price:3564,title:'Керамогранит «Жаклин» 20x80 см 1.6 м² цвет белый'}],orders:[{productId:'0',title:'Керамогранит Creto Forza Calacatta white PG 01 45х45',collection:'МоноТиберия',side:'РОССИЯ',img:'/images/products/1.png',pricePerUnit:3564,quantity:1,unit:'шт',total:3564,createdAt:'2026-06-25T02:39:05.803Z',status:'новый',payment:'наличными в магазине',id:'in4YFtwKomA'},{productId:'0',title:'Керамогранит Creto Forza Calacatta white PG 01 45х45',collection:'МоноТиберия',side:'РОССИЯ',img:'/images/products/1.png',pricePerUnit:3564,quantity:2,unit:'шт',total:7128,createdAt:'2026-06-25T02:39:44.523Z',status:'новый',payment:'наличными в магазине',id:'VIB_Wu75AsU'},{productId:'1',title:'Керамогранит «Жаклин» 20x80 см 1.6 м² цвет белый',collection:'МоноТиберия',side:'РОССИЯ',img:'/images/products/1.png',pricePerUnit:3564,quantity:10,unit:'шт',total:35640,createdAt:'2026-06-25T06:13:40.529Z',status:'новый',payment:'наличными в магазине',id:'AzxePFnUjwQ'}],
+  collection:
   [
     {
-      productId:'0',
-      title:'Керамогранит Creto Forza Calacatta white PG 01 45х45',
-      collection:'МоноТиберия',side:'РОССИЯ',img:'/images/products/1.png',
-      pricePerUnit:3564,
-      quantity:1,unit:'шт',total:3564,createdAt:'2026-06-25T02:39:05.803Z',status:'новый',payment:'наличными в магазине',id:'in4YFtwKomA'},
-    {productId:'0',title:'Керамогранит Creto Forza Calacatta white PG 01 45х45',collection:'МоноТиберия',side:'РОССИЯ',img:'/images/products/1.png',pricePerUnit:3564,quantity:2,unit:'шт',total:7128,createdAt:'2026-06-25T02:39:44.523Z',status:'новый',payment:'наличными в магазине',id:'VIB_Wu75AsU'}],collection:[{id:'0',flag:'/images/flag/1.png',country:'Россия',brand:'Laparet',name:'МоноТиберио',count:4,img:'/images/populars/1.png'},{id:'1',flag:'/images/flag/2.png',country:'Испания',brand:'Чупакабро',name:'Альтус',count:12,img:'/images/populars/2.png'},
+      id: 4,
+      name: 'Honey',
+      country: 'Россия',
+      flagEmoji: '🇷🇺',
+      flag: null,           // '/images/flags/ru.png'
+      brand: 'LAPARET',
+      brandLogo: null,      // '/images/brands/laparet.svg'
+      types: ['базовая плитка', 'напольная плитка', 'бордюры'],
+      application: 'для ванной',
+      colors: 'серый, белый, зеленый',
+      style: 'под бетон, под кирпич',
+      pattern: 'под бетон, под кирпич',
+      sizes: '20*60, 40*40, 10*26, 3*26',
+      formats: 'прямоугольник, крупные форматы',
+      price: 5600,
+      priceOld: 5800,
+      discount: 30,
+      discountUntil: '15 августа',
+      images: [
+        '/images/populars/honey.png',
+        '/images/populars/2.png',
+        '/images/populars/2.png',
+        '/images/populars/2.png',
+        '/images/populars/2.png',
+      ],
+      description: [
+        'Своим появлением керамическая плитка Honey от бренда Laparet разбавила ранее представленные изделия из керамогранита.',
+        'Глянцевая поверхность плиток данной коллекции способствует яркому отражению фактуры. Фактура агата, благодаря которой плитка выглядит весьма роскошно и презентабельно. А материал обеспечит долговечность и устойчивость к внешним воздействиям.',
+        'Плитка будет отлично гармонировать и дополнять интерьер ванной комнаты, при этом плитка впишется в любое помещение и пространство.',
+      ],
+    },
+    {id:'0',flag:'/images/flag/1.png',country:'Россия',brand:'Laparet',name:'МоноТиберио',count:4,img:'/images/populars/1.png'},
+    {id:'1',flag:'/images/flag/2.png',country:'Испания',brand:'Чупакабро',name:'Альтус',count:12,img:'/images/populars/2.png'},
     {id:'2',flag:'/images/flag/3.png',country:'Италия',brand:'casabella',name:'Бизарро',count:4,img:'/images/populars/3.png'}
   ],
-  advantages:
-  [
-    {id:'0',line1:'удобная доставка',line2:'по Иркутску',sub:'в день покупки',svg:'/images/svg/truck.svg'},
-    {id:'1',line1:'резка плитки',line2:'и керамогранита',sub:'под ваш проект',svg:'/images/svg/Group.svg'},{id:'2',line1:'монтаж плитки',line2:'на вашем объекте',sub:'под ключ',svg:'/images/svg/layers.svg'},{id:'3',line1:'3D дизайн-проект',line2:'в подарок',sub:'при покупке плитки',svg:'/images/svg/codepen.svg'}],promos:[{tag:'с 15 апреля по 20 мая',title:'РАСПРОДАЖА КЕРАМИКИ ITALON',img:'/images/promos/1.png',id:'Pjv0V2IdFag'},{tag:'обновление каталога',title:'Новые поступления GRASARO 2021',img:'/images/promos/2.png',id:'mYiwyjlFrhA'},{tag:'с 15 апреля по 20 мая',title:'СКИДКА НА ОСТАТКИ до 70%',img:'/images/promos/3.png',id:'dxZyHQKz9W8'},{tag:'акция',title:'БЕСПЛАТНЫЙ ЗАМЕР ПРИ ЗАКАЗЕ',img:'https://images.unsplash.com/photo-1631889993959-41b4e9c6e3c5?w=450&q=80',id:'YE14hvAKuHQ'}],popular:[{flag:'🇷🇺',country:'Россия',brand:'Laparet',name:'МоноТиберио',count:4,wished:false,img:'/images/populars/1.png',id:'Q5o95uXK5p4'},{flag:'🇪🇸',country:'Испания',brand:'Чупакабро',name:'Альтус',count:12,wished:false,img:'/images/populars/2.png',id:'JLnpKQILHEk'},{flag:'🇮🇹',country:'Италия',brand:'casabella',name:'Бизарро',count:4,wished:true,img:'/images/populars/3.png',id:'1XOOLCYGBDA'},{flag:'🇷🇺',country:'Россия',brand:'Italon',name:'Charme Evo',count:8,wished:false,img:'https://images.unsplash.com/photo-1502005097973-6a7082348e28?w=400&q=80',id:'qeX3qFhgYcQ'}],$schema:'./node_modules/json-server/schema.json'}
+  advantages:[{id:'0',line1:'удобная доставка',line2:'по Иркутску',sub:'в день покупки',svg:'/images/svg/truck.svg'},{id:'1',line1:'резка плитки',line2:'и керамогранита',sub:'под ваш проект',svg:'/images/svg/Group.svg'},{id:'2',line1:'монтаж плитки',line2:'на вашем объекте',sub:'под ключ',svg:'/images/svg/layers.svg'},{id:'3',line1:'3D дизайн-проект',line2:'в подарок',sub:'при покупке плитки',svg:'/images/svg/codepen.svg'}],promos:[{tag:'с 15 апреля по 20 мая',title:'РАСПРОДАЖА КЕРАМИКИ ITALON',img:'/images/promos/1.png',id:'Pjv0V2IdFag'},{tag:'обновление каталога',title:'Новые поступления GRASARO 2021',img:'/images/promos/2.png',id:'mYiwyjlFrhA'},{tag:'с 15 апреля по 20 мая',title:'СКИДКА НА ОСТАТКИ до 70%',img:'/images/promos/3.png',id:'dxZyHQKz9W8'},{tag:'акция',title:'БЕСПЛАТНЫЙ ЗАМЕР ПРИ ЗАКАЗЕ',img:'https://images.unsplash.com/photo-1631889993959-41b4e9c6e3c5?w=450&q=80',id:'YE14hvAKuHQ'}],popular:[{flag:'🇷🇺',country:'Россия',brand:'Laparet',name:'МоноТиберио',count:4,wished:false,img:'/images/populars/1.png',id:'Q5o95uXK5p4'},{flag:'🇪🇸',country:'Испания',brand:'Чупакабро',name:'Альтус',count:12,wished:false,img:'/images/populars/2.png',id:'JLnpKQILHEk'},{flag:'🇮🇹',country:'Италия',brand:'casabella',name:'Бизарро',count:4,wished:true,img:'/images/populars/3.png',id:'1XOOLCYGBDA'},{flag:'🇷🇺',country:'Россия',brand:'Italon',name:'Charme Evo',count:8,wished:false,img:'https://images.unsplash.com/photo-1502005097973-6a7082348e28?w=400&q=80',id:'qeX3qFhgYcQ'}],$schema:'./node_modules/json-server/schema.json'}

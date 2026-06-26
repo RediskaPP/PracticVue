@@ -101,11 +101,13 @@
       <!-- Collections -->
       <template v-if="viewMode === 'collections'">
         <div v-if="filteredCollections.length" class="items-grid">
-          <Collection
+          <RouterLink
               v-for="item in filteredCollections"
               :key="item.id"
-              :item="item"
-          />
+              :to="{ name: 'collection', params: { id: item.id } }"
+          >
+            <Collection :item="item" />
+          </RouterLink>
         </div>
         <div v-else class="empty-state">
           <svg width="48" height="48" viewBox="0 0 48 48" fill="none">

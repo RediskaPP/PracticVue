@@ -5,6 +5,7 @@ import ProductsPage from "../pages/ProductsPage.vue";
 import UsefulTips from "../components/ Question/UsefulTips.vue";
 import PromotionsPage from "../pages/PromotionsPage.vue";
 import ProfilePage from "../pages/ProfilePage.vue";
+import CollectionPage from "../pages/CollectionPage.vue";
 
 const routes = [
     {
@@ -31,6 +32,11 @@ const routes = [
         path: '/profile',
         name: 'profile',
         component: ProfilePage
+    },
+    {
+        path: '/collection/:id',
+        name: 'collection',
+        component: CollectionPage
     },
 ]
 
